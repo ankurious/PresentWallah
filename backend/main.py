@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine, Base
 from app.routers import auth, projects
+import os
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
@@ -12,15 +13,10 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# CORS middleware
+# CORS middleware - allow all origins for simplicity (you can restrict later)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://localhost:5173",
-        "https://*.netlify.app",  # Netlify deployments
-        "https://*.render.com"     # Render deployments (if needed)
-    ],
+    allow_origins=["*"],  # Allow all origins (Netlify, localhost, etc.)
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
