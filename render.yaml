@@ -12,12 +12,15 @@ services:
       - key: PEXELS_API_KEY
         sync: false
       - key: DATABASE_URL
-        value: sqlite:///./presentwallah.db
+        fromDatabase:
+          name: presentwallah-db
+          property: connectionString
       - key: ALGORITHM
         value: HS256
       - key: ACCESS_TOKEN_EXPIRE_MINUTES
         value: 60
-    disk:
-      name: presentwallah-data
-      mountPath: /opt/render/project/src/backend
-      sizeGB: 1
+
+databases:
+  - name: presentwallah-db
+    databaseName: presentwallah
+    user: presentwallah
