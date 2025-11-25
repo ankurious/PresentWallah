@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: presentwallah-backend
+    runtime: python
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: SECRET_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: PEXELS_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        value: sqlite:///./presentwallah.db
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 60
+    disk:
+      name: presentwallah-data
+      mountPath: /opt/render/project/src/backend
+      sizeGB: 1

@@ -15,7 +15,12 @@ app = FastAPI(
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],  # React dev servers
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "https://*.netlify.app",  # Netlify deployments
+        "https://*.render.com"     # Render deployments (if needed)
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
